@@ -1,5 +1,5 @@
 #pragma once
-#include "EventGroup.hpp"
+#include "../EventGroup.hpp"
 #include "freertos/event_groups.h"
 
 template <class GroupType>

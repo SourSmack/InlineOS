@@ -1,24 +1,15 @@
 #pragma once
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 
-
-
-
-
-template< class T >
-class EventQueue{
+template <class T>
+class EventQueue {
 private:
-    T *queuePtr { nullptr } ;
+    T queueHandle{nullptr}; 
+
 public:
-    EventQueue( T *ptr){
-        if ( ptr)  queuePtr = ptr ;
-    }
-    T* operator*(){ return queuePtr; } 
-    bool recieve( void * event, uint32_t ticksToWait){
-        if( xQueueReceive( queuePtr,   event, ticksToWait )  == pdPASS) return true ;
-        return false ;
-    }
+    explicit EventQueue(T handle);
+    T operator*();
+    bool receive(void* event, uint32_t ticksToWait);
 };
 
 
+#include "EventQueue.cpp"

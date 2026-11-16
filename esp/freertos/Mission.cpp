@@ -1,4 +1,4 @@
-#include "Mission.hpp"
+#include "../Mission.hpp"
 
 unsigned long Mission::MAX_DELAY = portMAX_DELAY;
 

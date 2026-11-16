@@ -1,4 +1,3 @@
-// EventGroup.hpp
 #pragma once
 
 #include "etl/optional.h"

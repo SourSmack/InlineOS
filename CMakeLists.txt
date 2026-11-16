@@ -1,4 +1,3 @@
-idf_component_register( SRCS "Mission.cpp" "EventFlags.cpp" "Courier.hpp" "EventGroup.cpp" 
-                        
-                        REQUIRES libs  main
+idf_component_register( 
+                        REQUIRES freertos 
                         INCLUDE_DIRS ".")
