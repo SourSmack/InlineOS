@@ -24,7 +24,7 @@ target_include_directories(inlineos_headers INTERFACE
     $<INSTALL_INTERFACE:include>
 
 )
-target_link_libraries( inlineos_headers PUBLIC inlineos_etl_lib )
+target_link_libraries( inlineos_headers INTERFACE inlineos_etl_lib )
 
 #registering target 
 add_subdirectory( esp/freertos/ ) 
