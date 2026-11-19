@@ -10,8 +10,10 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE 
     SOURCE_SUBDIR  skip_cmake
 )
-add_library( etl_lib INTERFACE ) 
-target_link_libraries( etl_lib INTERFACE "${etl_SOURCE_DIR}/include" )
+FetchContent_MakeAvailable(etl)
+
+add_library( inlineos_etl_lib INTERFACE ) 
+target_include_directories( inlineos_etl_lib INTERFACE "${etl_SOURCE_DIR}/include" )
 
 # sharing headers for TU files 
 add_library( inlineos_headers INTERFACE ) 
@@ -21,8 +23,8 @@ target_include_directories(inlineos_headers INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 
-    etl_lib
 )
+target_link_libraries( inlineos_headers PUBLIC inlineos_etl_lib )
 
 #registering target 
 add_subdirectory( esp/freertos/ ) 
