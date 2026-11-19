@@ -7,11 +7,12 @@
 #include "freertos/task.h"
 
 
+template< class T >
 class Mission {
 private:
     friend class FREERTOSTest ;
 
-    TaskHandle_t taskHandle { nullptr };
+    T taskHandle { nullptr };
 
     bool  taskRunning { false } ;
 
@@ -65,11 +66,7 @@ public:
 
     static bool stopRequested();
 
-    static uint32_t checkOnFlags(){
-        uin32_t result{ 0 } ;
-        xTaskNotifyWait( 0 , ~(uint32_t)0 , &result , 0 );
-        return result ;
-    }
+    static uint32_t checkOnFlags();
 
     static bool waitForNotify( const uint32_t waitBitMask , const uint32_t p_delay );
 
@@ -78,4 +75,5 @@ public:
     static void yield() ;
 };
 
+#include "Mission.cpp"
 static_assert( TaskConcept< Mission > );
