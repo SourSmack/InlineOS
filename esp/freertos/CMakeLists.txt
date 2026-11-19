@@ -19,6 +19,7 @@ add_library(InlineOS::esp::freertos::Mission ALIAS inlineos_esp_freertos_mission
 target_link_libraries(inlineos_esp_freertos_mission PUBLIC InlineOS::headers PRIVATE inlineos_esp_freertos_deps)
 #]]
 add_library( inlineos_esp_freertos_mission INTERFACE) 
+add_library( InlineOS::esp::freertos::Mission ALIAS inlineos_esp_freertos_mission) 
 target_include_directories( inlineos_esp_freertos_mission INTERFACE  "${CMAKE_CURRENT_SOURCE_DIR}" )
 target_link_libraries( inlineos_esp_freertos_mission INTERFACE inlineos_esp_freertos_deps  InlineOS::Headers) 
 
