@@ -1,5 +1,5 @@
 #pragma once
-#include "../EventQueue.hpp"
+#include "EventQueue.hpp"
 
 template <class T>
 EventQueue<T>::EventQueue(T handle) {
