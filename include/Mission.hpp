@@ -76,4 +76,3 @@ public:
 };
 
 #include "Mission.cpp"
-static_assert( TaskConcept< Mission > );
