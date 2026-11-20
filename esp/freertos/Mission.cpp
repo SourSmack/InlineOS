@@ -37,7 +37,7 @@ bool Mission<T>::notify( const uint32_t message )   {
 
 template< class T >
 bool Mission<T>::requestStop()  {
-    auto result = xTaskNotify( taskHandle , stopBit , eSetBits  ) ;
+    auto result = xTaskNotify( taskHandle , event.stop , eSetBits  ) ;
     if ( result != pdPASS) return false ; 
     return true ;
 }
@@ -62,8 +62,8 @@ bool Mission<T>::start() {
 template< class T >
 bool Mission<T>::stopRequested(   ){
     uint32_t result { 0 } ;
-    if ( !xTaskNotifyWait( 0 , stopBit ,  &result , 0  )) return false ;
-    if ( result & stopBit ) return true ;
+    if ( !xTaskNotifyWait( 0 , event.stop ,  &result , 0  )) return false ;
+    if ( result & event.stop ) return true ;
     return false ;
 }
 
