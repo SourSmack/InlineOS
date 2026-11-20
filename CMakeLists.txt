@@ -17,7 +17,7 @@ target_include_directories( inlineos_etl_lib INTERFACE "${etl_SOURCE_DIR}/includ
 
 # sharing headers for TU files 
 add_library( inlineos_headers INTERFACE ) 
-add_library( InlineOS::headers ALIAS  inlineos_headers ) 
+add_library( InlineOS::Headers ALIAS  inlineos_headers ) 
 target_include_directories(inlineos_headers INTERFACE
     # either from source or .obj
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
