@@ -22,7 +22,7 @@ template< class T >
     }
 
 template< class T >
-uint32_t Mission<T><checkOnFlags(){
+uint32_t Mission<T>::checkOnFlags(){
         uin32_t result{ 0 } ;
         xTaskNotifyWait( 0 , ~(uint32_t)0 , &result , 0 );
         return result ;
