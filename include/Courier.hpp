@@ -4,6 +4,7 @@
 #include "Mission.hpp"
 
 template<
+    class T ,
     class Self,
     bool (*TransportData)(Self&),
     bool (*DestinationAvailable)(Self&) = nullptr,
@@ -18,12 +19,12 @@ public:
     };
 
 private:
-    Mission &task;
+    Mission<T> &task;
 
     static void transfer(void * context);
 
 public:
-    explicit Courier(Mission &p_task);
+    explicit Courier(Mission<T> &p_task);
 
     bool pauseTransfer();
     bool stopTransfer();
