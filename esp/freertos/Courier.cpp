@@ -1,89 +1,95 @@
-
 template<
+    class T ,
     class Self,
     bool (*TransportData)(Self&),
     bool (*DestinationAvailable)(Self&),
     bool (*SourceAvailable)(Self&)
 >
-Courier<Self, TransportData, DestinationAvailable, SourceAvailable>::Courier(Mission &p_task)
-    : task(p_task) {}
+Courier<T, Self, TransportData, DestinationAvailable, SourceAvailable>::Courier(Mission<T> &p_task)
+    : task(p_task) 
+    { }
 
 template<
+    class T ,
     class Self,
     bool (*TransportData)(Self&),
     bool (*DestinationAvailable)(Self&),
     bool (*SourceAvailable)(Self&)
 >
-void Courier<Self, TransportData, DestinationAvailable, SourceAvailable>::transfer(void * context) {
+void Courier<T, Self, TransportData, DestinationAvailable, SourceAvailable>::transfer(void * context) {
     auto& self = *static_cast<Self*>(context);
 
-    while (!Mission::waitForNotify(Mission::event.stop, 0)) {
-        if (Mission::waitForNotify(Mission::event.pause, 0)) {
-            while (!Mission::waitForNotify(Mission::event.resume, Mission::MAX_DELAY)) {}
+    while (!Mission<T>::waitForNotify(Mission<T>::event.stop, 0)) {
+        if (Mission<T>::waitForNotify(Mission<T>::event.pause, 0)) {
+            while (!Mission<T>::waitForNotify(Mission<T>::event.resume, Mission<T>::MAX_DELAY)) {}
         }
 
         if constexpr (SourceAvailable != nullptr) {
             while (!SourceAvailable(self)) {
-                Mission::notify(sourceExhaustion);
-                while (!Mission::waitForNotify(Mission::event.resume, Mission::MAX_DELAY)) {}
+                Mission<T>::notify(sourceExhaustion);
+                while (!Mission<T>::waitForNotify(Mission<T>::event.resume, Mission<T>::MAX_DELAY)) {}
             }
         }
 
         if constexpr (DestinationAvailable != nullptr) {
             while (!DestinationAvailable(self)) {
-                Mission::notify(destinationExhaustion);
-                while (!Mission::waitForNotify(Mission::event.resume, Mission::MAX_DELAY)) {}
+                Mission<T>::notify(destinationExhaustion);
+                while (!Mission<T>::waitForNotify(Mission<T>::event.resume, Mission<T>::MAX_DELAY)) {}
             }
         }
 
         if constexpr (TransportData != nullptr) {
             if (!TransportData(self)) {
-                Mission::notify(transferExhaustion);
-                while (!Mission::waitForNotify(Mission::event.resume, Mission::MAX_DELAY)) {}
+                Mission<T>::notify(transferExhaustion);
+                while (!Mission<T>::waitForNotify(Mission<T>::event.resume, Mission<T>::MAX_DELAY)) {}
             }
         }
     }
 }
 
 template<
+    class T ,
     class Self,
     bool (*TransportData)(Self&),
     bool (*DestinationAvailable)(Self&),
     bool (*SourceAvailable)(Self&)
 >
-bool Courier<Self, TransportData, DestinationAvailable, SourceAvailable>::pauseTransfer() {
+bool Courier<T, Self, TransportData, DestinationAvailable, SourceAvailable>::pauseTransfer() {
     return false;
 }
 
 template<
+    class T ,
     class Self,
     bool (*TransportData)(Self&),
     bool (*DestinationAvailable)(Self&),
     bool (*SourceAvailable)(Self&)
 >
-bool Courier<Self, TransportData, DestinationAvailable, SourceAvailable>::stopTransfer() {
+bool Courier<T, Self, TransportData, DestinationAvailable, SourceAvailable>::stopTransfer() {
     return false;
 }
 
 template<
+    class T ,
     class Self,
     bool (*TransportData)(Self&),
     bool (*DestinationAvailable)(Self&),
     bool (*SourceAvailable)(Self&)
 >
-bool Courier<Self, TransportData, DestinationAvailable, SourceAvailable>::startTransfer() {
+bool Courier<T, Self, TransportData, DestinationAvailable, SourceAvailable>::startTransfer() {
     return false;
 }
 
 template<
+    class T ,
     class Self,
     bool (*TransportData)(Self&),
     bool (*DestinationAvailable)(Self&),
     bool (*SourceAvailable)(Self&)
 >
-uint32_t Courier<Self, TransportData, DestinationAvailable, SourceAvailable>::verifyStatus(uint32_t status) {
+uint32_t Courier<T, Self, TransportData, DestinationAvailable, SourceAvailable>::verifyStatus(uint32_t status) {
     if (status) {
-        return Mission::waitForNotify(status, 0);
+        return Mission<T>::waitForNotify(status, 0);
     }
-    return Mission::checkOnFlags();
+    return Mission<T>::checkOnFlags();
 }
