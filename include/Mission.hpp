@@ -39,7 +39,7 @@ private:
 
 public:
 
-    inline static _event event = {0, 0, 0 , 0 };    
+    inline static _event event = {0, 0, 0  };    
 
     static  unsigned long MAX_DELAY ;
 

@@ -7,7 +7,7 @@ uint32_t EventGroup<GroupType>::MAX_DELAY = portMAX_DELAY;
 
 template <class GroupType>
 etl::optional<EventGroup<GroupType>> EventGroup<GroupType>::create(GroupType &p_eventGroup, uint32_t bits) {
-    return etl::optional<EventGroup<GroupType>>{ etl::in_place, p_eventGroup };
+    return EventGroup<GroupType>{};
 }
 
 template <class GroupType>
